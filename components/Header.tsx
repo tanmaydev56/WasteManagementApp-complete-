@@ -209,7 +209,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="flex items-center justify-between px-4 py-2">
-      <p>Total Earnings: {totalEarnings}</p>
+      <p className="hidden">Total Earnings: {totalEarnings}</p>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="mr-2 md:mr-4" onClick={onMenuClick}>
             <Menu className="h-6 w-6" />
