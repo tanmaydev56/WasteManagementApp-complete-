@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [totalEarnings, setTotalEarnings] = useState(0)
+  const [totalEarnings] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {

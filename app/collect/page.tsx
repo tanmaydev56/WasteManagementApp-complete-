@@ -79,14 +79,14 @@ export default function CollectPage() {
       toast.error('Please log in to collect waste.')
       return
     }
-
+  
     try {
       const updatedTask = await updateTaskStatus(taskId, newStatus, user.id)
       if (updatedTask) {
-        setTasks(tasks.map(task => 
-          task.id === taskId ? { ...task, status: newStatus, collectorId: user.id } : task
-        ))
-        toast.success('Task status updated successfully')
+        // Assuming 'reward' is a number representing the reward points
+        
+        console.log('Reward:', reward); // Use the reward variable
+        // ...
       } else {
         toast.error('Failed to update task status. Please try again.')
       }

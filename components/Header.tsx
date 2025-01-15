@@ -1,10 +1,10 @@
-//@ts-nocheck
+
 'use client'
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { usePathname } from 'next/navigation'
+
 import { Button } from "@/components/ui/button"
-import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn, LogOut } from "lucide-react"
+import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn,  } from "lucide-react"
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -17,6 +17,7 @@ import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base"
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
 import { useMediaQuery } from "@/hooks/useMediaquery"
 import { createUser, getUnreadNotifications, markNotificationAsRead, getUserByEmail, getUserBalance } from "@/utils/db/actions"
+import { console } from "inspector"
 
 const clientId = "BJKdDFkNtkWX87XqkuWrDu4rbkSvWyQZ5lswS0ucINxxcN0inRVW8zzKAywPPzgiOHP7_3PcfFwfpvcQvSdaLRs";
 
@@ -30,7 +31,11 @@ const chainConfig = {
   tickerName: "Ethereum",
   logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
 };
-
+interface Notification {
+  id: number;
+  message: string;
+  type: string;
+}
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig },
 });
@@ -51,7 +56,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<any>(null);
-  const pathname = usePathname()
+ 
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const isMobile = useMediaQuery("(max-width: 768px)")
   const [balance, setBalance] = useState(0)
@@ -62,6 +67,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
     const init = async () => {
       try {
         await web3auth.initModal();
+        
         setProvider(web3auth.provider);
 
         if (web3auth.connected) {
@@ -86,7 +92,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
     };
 
     init();
-  }, []);
+  }, [provider]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -203,6 +209,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="flex items-center justify-between px-4 py-2">
+      <p>Total Earnings: {totalEarnings}</p>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="mr-2 md:mr-4" onClick={onMenuClick}>
             <Menu className="h-6 w-6" />

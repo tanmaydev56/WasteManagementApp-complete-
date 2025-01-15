@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 'use client'
 import { useState, useEffect } from 'react'
 import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin } from 'lucide-react'
@@ -47,7 +47,7 @@ export default function Home() {
         }, 0);
 
         const reportsSubmitted = reports.length;
-        const tokensEarned = rewards.reduce((total, reward) => total + (reward.points || 0), 0);
+        const tokensEarned = rewards.reduce((total, reward) => total + (reward.totalPoints || 0), 0);
         const co2Offset = wasteCollected * 0.5;  // Assuming 0.5 kg CO2 offset per kg of waste
 
         setImpactData({
